@@ -6,7 +6,8 @@ discord js bot for sending a minecraft server's status to a channel periodically
 # usage
 1. download
 2. edit config
-3. run with `node index.js`
+3. install packages with `npm install`
+4. run with `node index.js`
 
 # notes
 only displays 12 players, this is likely a minecraft thing
