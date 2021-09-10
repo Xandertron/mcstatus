@@ -1,16 +1,23 @@
 {
   "name": "mcstatus",
-  "version": "1.0.0",
-  "description": "discord bot for server status of a mc server",
+  "version": "1.0.1",
+  "description": "discord js bot for sending a minecraft server's status to a channel periodically",
   "main": "index.js",
-  "dependencies": {
-    "discord.js": "^12.5.1",
-    "gamedig": "^3.0.0"
-  },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Xandertron/mcstatus.git"
+  },
   "author": "Xandertron",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/Xandertron/mcstatus/issues"
+  },
+  "homepage": "https://github.com/Xandertron/mcstatus#readme",
+  "dependencies": {
+    "discord.js": "^13.1.0",
+    "gamedig": "^3.0.7"
+  }
 }
