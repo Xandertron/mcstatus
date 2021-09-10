@@ -1,5 +1,5 @@
-const Discord = require("discord.js");
-const client = new Discord.Client();
+const Discord = require('discord.js');
+const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS] });
 const config = require("./config.json");
 client.login(config.token);
 const gd = require("gamedig");
@@ -22,8 +22,8 @@ function msToTime(duration) {
 function getInfo() {
     gd.query({
         type: "minecraft",
-        host: "74.91.115.86",
-        port: 25565,
+        host: config.ip,
+        port: config.port,
         maxAttempts: 3
     }).then((state) => {
         //clean timeplayed
@@ -40,13 +40,19 @@ function getInfo() {
         if (state.players.length>=1) {
             let max = 0
             for (i = 0; i < state.players.length; i++) {
-                if (state.players[i]["name"].length>max) {
+                if (state.players[i]["name"] == "") {
+                    break
+                }
+                if (state.players[i]["name"].length>max) { // for padding
                     max = state.players[i]["name"].length
                 }
             }
             str = "\`\`\`"
-            for (i = 0; i < state.players.length; i++) {
-                let name = state.players[i]["name"]
+            for (i = 0; i < state.raw.vanilla.players.length; i++) {
+                let name = state.raw.vanilla.players[i]["name"]
+                if (name == "") {
+                    break
+                }
                 time = timeplayed[name]
                 if(time == undefined){
                     time = 0
@@ -58,12 +64,14 @@ function getInfo() {
                 }
                 str = str + "\n" + name.padEnd(max+2," ") + "[" + msToTime(time) + "]"
             }
+            str = str.substr(0,1000)
             str = str + "\n\`\`\`"
+            
             //console.log(str)
             embed
                 .setColor(0x3399FF)
                 .setTitle("Status: Online")
-                .addField("Players Online: "+state.players.length + "/" + state.maxplayers,str)
+                .addField("Players Online: "+state.players.length.toString() + "/" + state.maxplayers.toString(), str)
         }
         else{
             embed
@@ -79,7 +87,7 @@ function getInfo() {
     });
 }
 function post() {
-    client.channels.cache.get(config.channel).send(embed)
+    client.channels.cache.get(config.channel).send({ embeds: [embed]})
 }
 client.on("ready", () => {
     getInfo()
