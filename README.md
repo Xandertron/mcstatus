@@ -10,5 +10,5 @@ discord js bot for sending a minecraft server's status to a channel periodically
 4. run with `node index.js`
 
 # notes
-only displays 12 players, this is likely a minecraft thing
-if it does have more than 12 players, list is "randomized" and timer info may be lost if a player doesnt show up
+1.  only displays 12 players, this is likely a minecraft thing
+1b. if it does have more than 12 players, list is "randomized" and timer info may be lost if a player doesnt show up
